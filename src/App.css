@@ -1,0 +1,78 @@
+/* Global background */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #231f20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;  
+}
+
+.auth-wrapper {          
+  display: grid;               /* use CSS grid for perfect centering */
+  justify-content: center;         /* centers both horizontally and vertically */
+  padding: 1rem;               /* some padding on small screens */
+}
+
+.auth-container {
+  max-width: 380px;
+  width: 100%;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: "Product Sans", "Google Sans", "Roboto", Arial, sans-serif;
+}
+
+.auth-mode{
+  color: white;
+  background-color: #555;
+  display: block;
+}
+
+.username,
+.password,
+.submit-auth {
+  display: block;
+  width: 360px;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: "Product Sans", "Google Sans", "Roboto", Arial, sans-serif;
+}
+
+.submit-auth {
+  background-color: #6c63ff;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 390px;
+}
+
+.toggle_auth {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  color: #555;
+  cursor: pointer;
+}
+.toggle_auth:hover{
+  color: white;
+}
+
+@media (max-width: 420px) {
+  .username,
+  .password,
+  .submit-auth {
+    width: 90%;
+  }
+}
