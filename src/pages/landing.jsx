@@ -1,4 +1,5 @@
 import { useState } from "react"
+import axios from "../api/axios";
 
 
 export default function Landing_page(){
@@ -21,8 +22,23 @@ export default function Landing_page(){
         state['signup']?register():login();
     }
 
-    const login = () => {
+    const login = async () => {
+        try {
+            const response = await axios.post('/auth/login',{
+                    username,
+                    password
+            })
 
+            localStorage.setItem('username', response.data.username)
+            localStorage.setItem('access_token', response.data.access_token)
+            localStorage.setItem('refresh_token', response.data.refresh_token)
+            localStorage.setItem('points', response.data.points)
+            alert('logged in')
+            
+        } catch (error) {
+            const msg = error?.response?.data?.response;
+            alert(msg);
+        }
     }
 
     const register = () => {
