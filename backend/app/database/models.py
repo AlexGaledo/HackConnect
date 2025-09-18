@@ -8,6 +8,8 @@ class User(db.Model):
     name = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(255))
     points = db.Column(db.Integer)
+    role = db.Column(db.String(20), default='user')
+    
 
     events = db.relationship('Event', backref='user')
     user_tasks = db.relationship('UserTasks', backref='user')

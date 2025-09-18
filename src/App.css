@@ -1,78 +1,68 @@
 /* Global background */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #231f20;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+body, #root {
+  font-family: "Product Sans", "Google Sans", "Roboto", Arial, sans-serif;
+  background: linear-gradient(135deg, #231f20 0%, #6c63ff 100%);
+  min-height: 100vh;
+  margin: 0;
+  color: #e0e7ff;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
   height: 100vh;
-  margin: 0;  
-}
-
-.auth-wrapper {          
-  display: grid;               /* use CSS grid for perfect centering */
-  justify-content: center;         /* centers both horizontally and vertically */
-  padding: 1rem;               /* some padding on small screens */
-}
-
-.auth-container {
-  max-width: 380px;
-  width: 100%;
-  padding: 2.5rem 2rem;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  text-align: center;
+  background-color: rgba(0,0,0,0.6);
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  color: white;
-  font-family: "Product Sans", "Google Sans", "Roboto", Arial, sans-serif;
+  align-items: center;
+  z-index: 10000;
 }
 
-.auth-mode{
-  color: white;
-  background-color: #555;
-  display: block;
+/* Modal box */
+.modal-box {
+  background-color: #231f20;
+  padding: 30px 40px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  position: relative;
 }
 
-.username,
-.password,
-.submit-auth {
-  display: block;
-  width: 360px;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-family: "Product Sans", "Google Sans", "Roboto", Arial, sans-serif;
+/* Modal title */
+.modal-title {
+  margin-bottom: 15px;
+  color: #6c63ff;
 }
 
-.submit-auth {
+/* Modal message */
+.modal-message {
+  margin-bottom: 25px;
+}
+
+/* Modal close button */
+.modal-close-btn {
+  padding: 10px 20px;
   background-color: #6c63ff;
   color: #fff;
   border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  width: 390px;
-}
-
-.toggle_auth {
-  margin-top: 18px;
-  font-size: 0.9rem;
-  color: #555;
+  border-radius: 6px;
   cursor: pointer;
 }
-.toggle_auth:hover{
-  color: white;
+
+/* Modal X button */
+.modal-x-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  border: none;
+  background: transparent;
+  color: #f44336;
+  font-size: 20px;
+  cursor: pointer;
 }
 
-@media (max-width: 420px) {
-  .username,
-  .password,
-  .submit-auth {
-    width: 90%;
-  }
-}

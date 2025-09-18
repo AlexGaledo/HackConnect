@@ -1,16 +1,25 @@
 import App from "../App";
 import { createContext, useState } from "react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { ModalProvider } from "../context/modalcontext";
+import { UserProvider } from "../context/usercontext";
 
-
-const authContext = createContext();
+export const AuthContext = createContext();
 
 export default function AppWrapper(){
     const [authStatus, setAuthStatus] = useState(false); // authstatus = login status
+
     return(
         <>
-        <authContext.Provider value={{authStatus,setAuthStatus}}>
-        <App/>
-        </authContext.Provider>
+        <UserProvider>
+        <ModalProvider>
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <AuthContext.Provider value={{authStatus,setAuthStatus}}>
+            <App/>
+        </AuthContext.Provider>
+        </GoogleOAuthProvider>
+        </ModalProvider>
+        </UserProvider>
         </>
     )
 }

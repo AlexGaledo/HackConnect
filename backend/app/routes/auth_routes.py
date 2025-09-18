@@ -15,16 +15,12 @@ def signup():
     data = request.get_json()
     hashed_pw = bcrypt.generate_password_hash(data.get('password')).decode('utf-8')
     try:
-        refresh_token = create_refresh_token(identity=data.get('username'))
-        access_token = create_access_token(identity=data.get('username'))
         new_user = User( 
         name=data.get('username'), password = hashed_pw, points = 0)
         db.session.add(new_user)
         db.session.commit()
         return jsonify({
-            "response":"User Created Successfully",
-            "access_token":access_token,
-            "refresh_token":refresh_token}), 201
+            "response":"User Created Successfully","username":data.get('username')}), 201
     except IntegrityError as e:
         logging.error(traceback.format_exc())
         db.session.rollback()
@@ -44,6 +40,7 @@ def login():
             refresh_token = create_refresh_token(identity=data.get('username'))
             access_token = create_access_token(identity=data.get('username'))
             return jsonify({"response":"Login Successful",
+                            "user_id":user.id,
                             "username":data.get('username'),
                             "access_token":access_token,
                             "refresh_token":refresh_token}), 200
