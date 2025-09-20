@@ -1,8 +1,8 @@
-"""empty message
+"""remade model
 
-Revision ID: e4356e74cf65
+Revision ID: c1b71fca73f0
 Revises: 
-Create Date: 2025-09-01 16:04:40.641606
+Create Date: 2025-09-19 12:58:36.712286
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e4356e74cf65'
+revision = 'c1b71fca73f0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,29 +26,33 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
-    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.UUID(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
+    sa.Column('email', sa.String(length=100), nullable=False),
     sa.Column('password', sa.String(length=255), nullable=True),
     sa.Column('points', sa.Integer(), nullable=True),
+    sa.Column('role', sa.String(length=20), nullable=True),
     sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('email'),
+    sa.UniqueConstraint('id'),
     sa.UniqueConstraint('name')
     )
     op.create_table('events',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('host', sa.Integer(), nullable=True),
+    sa.Column('host_id', sa.UUID(), nullable=True),
     sa.Column('date_created', sa.DateTime(), nullable=True),
     sa.Column('date_modified', sa.DateTime(), nullable=True),
     sa.Column('title', sa.String(length=100), nullable=False),
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('mode', sa.String(length=50), nullable=True),
     sa.Column('deadline', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['host'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['host_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('title')
     )
     op.create_table('user_tasks',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('user_id', sa.UUID(), nullable=True),
     sa.Column('task_id', sa.Integer(), nullable=True),
     sa.Column('is_completed', sa.Boolean(), nullable=True),
     sa.Column('completed_at', sa.DateTime(), nullable=True),
@@ -59,7 +63,7 @@ def upgrade():
     op.create_table('participants',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('event_id', sa.Integer(), nullable=True),
-    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('user_id', sa.UUID(), nullable=True),
     sa.Column('joined_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['event_id'], ['events.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),

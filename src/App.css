@@ -1,10 +1,10 @@
 /* Global background */
 body, #root {
   font-family: "Product Sans", "Google Sans", "Roboto", Arial, sans-serif;
-  background: linear-gradient(135deg, #231f20 0%, #6c63ff 100%);
   min-height: 100vh;
   margin: 0;
   color: #e0e7ff;
+  background:linear-gradient(180deg, #6c63ff 0%, #231f20 100%);
 }
 
 /* Modal overlay */
@@ -65,4 +65,114 @@ body, #root {
   font-size: 20px;
   cursor: pointer;
 }
+
+.header-container {
+  background-color: #231f20;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.header-container .nav{
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: end;
+}
+
+.header-container .tools:hover{
+  cursor: pointer;
+  color:#6c63ff;
+}
+
+.header-container .header-logo{
+  margin-right: auto;
+}
+
+
+
+.header-container .profile-icon{
+  border-radius: 20%;
+  cursor: pointer;
+}
+
+.header-container .profile-icon:hover{
+  cursor: pointer;
+  color: #6c63ff;
+  transition: 0.3s ease-in-out;
+  background: transparent;
+}
+
+/* saarch bar */
+.search-container {
+  width: 90%;
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #231f20;
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  flex-direction: column;
+  z-index: 10;
+  position: relative; /* important for absolute child */
+  border: 2px solid transparent; /* always takes up 2px space */
+  transition: border-color 0.2s ease; /* smooth change */
+}
+
+.search-container:focus-within {
+  border-color:  #6c63ff;
+}
+
+.search-container .search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-radius: 1.5rem;
+  padding: 0.25rem;
+}
+
+.search-container .search-icon {
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.search-container .search-icon:hover {
+  cursor: pointer;
+  color: #6c63ff;
+  filter: invert(100%);
+}
+
+.search-container .search-box {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #e0e7ff;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+/* 🔥 dropdown overlay */
+.search-container .search-item-container {
+  position: absolute;
+  top: 100%; /* right below input */
+  left: 0;
+  width: 100%;
+  margin-top: 0.25rem;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #231f20;
+  border: 1px solid #6c63ff;
+  border-radius: 0.75rem;
+  z-index: 999; /* keep it above other content */
+  border: 2px solid transparent; /* reserve space */
+}
+
+
+
+
+
+
+
+
 

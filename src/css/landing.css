@@ -5,6 +5,7 @@
   align-items: center;
   min-height: 100vh;
   background: transparent;
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
 /* Main auth box */
@@ -86,7 +87,7 @@
     color: #fff;
   }
 
-/* Form styling */
+/* For  m styling */
 .landing-auth {
   display: flex;
   flex-direction: column;
@@ -96,7 +97,8 @@
 }
 
 .landing-auth .username,
-.landing-auth .password {
+.landing-auth .password,
+.landing-auth .email {
   width: 100%;
   padding: 0.9rem 1.1rem;
   border: none;

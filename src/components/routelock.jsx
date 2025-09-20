@@ -4,5 +4,5 @@ import { AuthContext } from "./appwrapper";
 
 export default function RouteLock({children}){
     const {authStatus} = useContext(AuthContext);
-    return authStatus?children : <Navigate to=''/>
+    return authStatus?children : <Navigate to='/'/>
 }

@@ -14,7 +14,7 @@ export default function AppWrapper(){
         <UserProvider>
         <ModalProvider>
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-        <AuthContext.Provider value={{authStatus,setAuthStatus}}>
+        <AuthContext.Provider value={{authStatus, setAuthStatus}}>
             <App/>
         </AuthContext.Provider>
         </GoogleOAuthProvider>

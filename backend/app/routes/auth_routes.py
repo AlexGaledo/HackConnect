@@ -16,7 +16,7 @@ def signup():
     hashed_pw = bcrypt.generate_password_hash(data.get('password')).decode('utf-8')
     try:
         new_user = User( 
-        name=data.get('username'), password = hashed_pw, points = 0)
+        name=data.get('username'),email=data.get('email'), password = hashed_pw, points = 0)
         db.session.add(new_user)
         db.session.commit()
         return jsonify({
@@ -42,6 +42,7 @@ def login():
             return jsonify({"response":"Login Successful",
                             "user_id":user.id,
                             "username":data.get('username'),
+                            "email":user.email,
                             "access_token":access_token,
                             "refresh_token":refresh_token}), 200
         else:

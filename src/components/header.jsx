@@ -1,5 +1,7 @@
 
-import profile from '../assets/profile.svg'
+import hackconnectlogo from '../assets/HackConnectLogo.png'
+import { CircleUser } from 'lucide-react'
+
 
 export default function Header(){
     
@@ -7,10 +9,11 @@ export default function Header(){
         <>
             <div className="header-container">
                 <div className="nav">
+                    <img src={hackconnectlogo} alt="HackConnect" className="header-logo" width={150} />
                     <p className="tools">Dashboard</p>
                     <p className="tools">Events</p>
                     <p className="tools">Wallet</p>
-                    <img src={profile} alt="profile icon"className="profile-icon"/>
+                    <CircleUser className="profile-icon" size={40}/>
                 </div>  
             </div>        
         </>

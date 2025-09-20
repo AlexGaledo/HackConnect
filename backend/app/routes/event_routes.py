@@ -22,7 +22,7 @@ def getEvents():
                 "deadline": event.deadline,
                 "date_created": event.date_created,
                 "date_modified": event.date_modified,
-                "host": event.host
+                "host_id": event.host_id
             }
             for event in events
         ]
@@ -38,7 +38,7 @@ def addEvent():
     try:
         data = request.get_json()
         new_event = Event(
-            host = data.get('user_id'), 
+            host_id = data.get('user_id'), 
             title = data.get('title'),
             description = data.get('description'), 
             mode = data.get('mode'), 
@@ -53,7 +53,7 @@ def addEvent():
             "deadline": new_event.deadline,
             "date_created": new_event.date_created,
             "date_modified": new_event.date_modified,
-            "host": new_event.host
+            "host_id": new_event.host_id
         }    
         return jsonify({"response":"event successfully created",
                         "event_info":event_info}), 201
@@ -78,7 +78,7 @@ def findEvent():
             "deadline": event.deadline,
             "date_created": event.date_created,
             "date_modified": event.date_modified,
-            "host": event.host
+            "host_id": event.host_id
         }
         for event in events
     ]

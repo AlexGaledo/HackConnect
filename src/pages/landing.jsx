@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../components/appwrapper";
 import { useModal } from "../context/modalcontext";
 import { useUser } from "../context/usercontext";
+import hackconnectlogo from '../assets/HackConnectLogo.png'
 
 export default function Landing_page(){
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
     const [confirm_password, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const {setAuthStatus} = useContext(AuthContext);
@@ -17,8 +19,8 @@ export default function Landing_page(){
     const { update_user } = useUser();
 
     const triggerError = () => {
-        const errorJSON = { code: 401, message: "Unauthorized access!" };
-        showModal({ title: "Oops!", message: errorJSON.message });
+        const errorJSON = { code: 401, message: "nuh,uh Unauthorized access!" };
+        showModal({ title: "backdoor!", message: errorJSON.message });
     };
 
     
@@ -43,17 +45,21 @@ export default function Landing_page(){
         try {
             const response = await axios.post('/auth/login',{
                     username,
-                    password
+                    password,
+                    email
             })
 
             localStorage.setItem('username', response.data.username)
             localStorage.setItem('user_id', response.data.user_id)
+            localStorage.setItem('email', response.data.email)
             localStorage.setItem('access_token', response.data.access_token)
             localStorage.setItem('refresh_token', response.data.refresh_token)
             localStorage.setItem('points', response.data.points)
 
+            //globally accessbile user state
             update_user({
                 id:response.data.user_id, 
+                email:response.data.email,
                 username:response.data.username, 
                 points:response.data.points, 
                 role:response.data.role
@@ -61,7 +67,7 @@ export default function Landing_page(){
 
             showModal({ title: "Success!", message: response.data.response || "Logged in Successfully." });
             setAuthStatus(true);
-            navigate(`/dashboard/${localStorage.getItem('user_id')}`)
+            navigate(`/dashboard`);
 
         } catch (error) {
             const msg = error?.response?.data?.response;
@@ -71,6 +77,7 @@ export default function Landing_page(){
             setUsername('')
             setPassword('')
             setConfirmPassword('')
+            setEmail('')
         }
         
     }
@@ -83,7 +90,8 @@ export default function Landing_page(){
         try {
             const response = await axios.post('/auth/sign-up',{
                     username,
-                    password
+                    password,
+                    email
             })
 
             if (response.data.username == username){
@@ -102,6 +110,7 @@ export default function Landing_page(){
             setUsername('')
             setPassword('')
             setConfirmPassword('')
+            setEmail('')
         }
     }
 
@@ -110,7 +119,7 @@ export default function Landing_page(){
         <div className="auth-wrapper">
         <div className="auth-box">
         <div className="landing-logo-box">
-            <img src="HackConnectLogo.png" alt="HackConnect" className="landing-logo" />
+            <img src={hackconnectlogo} alt="HackConnect" className="landing-logo" />
         </div>
         <div className={`slider-container-${state.signup ?"signup" : " "}`}></div>
         <div className="slider-buttons">
@@ -126,6 +135,8 @@ export default function Landing_page(){
             value={password} onChange={(e) => setPassword(e.target.value)} required />
             <input className="password" type="password" placeholder="confirm password"
             value={confirm_password} onChange={(e) => setConfirmPassword(e.target.value)} required />
+            <input className="email" type="email" placeholder="Email" value={email} required 
+            onChange={(e)=>{setEmail(e.target.value)}}/>
             <button className="submit-auth" type="submit" disabled={loading}>{loading ? "Loading..." : "Submit"}</button>
             <h3 className="toggle_auth" onClick={() => { toggle('signup') }}></h3>
         </>

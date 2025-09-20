@@ -1,11 +1,14 @@
 from ..extensions import db
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
 
 #user
 class User(db.Model):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(UUID(as_uuid=True), default=uuid.uuid4, unique=True, nullable=False, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(255))
     points = db.Column(db.Integer)
     role = db.Column(db.String(20), default='user')
@@ -15,17 +18,18 @@ class User(db.Model):
     user_tasks = db.relationship('UserTasks', backref='user')
     participants = db.relationship('EventParticipants', backref='users')
 
-    def __init__(self, name, password, points=0):
+    def __init__(self, name, email, password, points=0):
         self.name = name
         self.password = password
         self.points = points
+        self.email = email
 
 #event
 class Event(db.Model):
     __tablename__ = 'events'
 
     id = db.Column(db.Integer, primary_key=True)
-    host = db.Column(db.Integer, db.ForeignKey('users.id'))
+    host_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'))
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
     title = db.Column(db.String(100), nullable=False, unique=True)
@@ -33,10 +37,10 @@ class Event(db.Model):
     mode = db.Column(db.String(50))
     deadline = db.Column(db.DateTime)
 
-    participants = db.relationship('EventParticipants', backref='event')
+    participants = db.relationship('EventParticipants', backref='events')
 
-    def __init__(self, host, title, description=None, mode=None, deadline=None):
-        self.host = host
+    def __init__(self, host_id, title, description=None, mode=None, deadline=None):
+        self.host_id = host_id
         self.title = title
         self.description = description
         self.mode = mode
@@ -47,7 +51,7 @@ class EventParticipants(db.Model):
     __tablename__ = 'participants'
     id = db.Column(db.Integer, primary_key=True)
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'))
     joined_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     def __init__(self, event_id, user_id, joined_at=None):
@@ -75,16 +79,18 @@ class Task(db.Model):
 class UserTasks(db.Model):
     __tablename__ = 'user_tasks'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.UUID(as_uuid=True), db.ForeignKey('users.id'))
     task_id = db.Column(db.Integer, db.ForeignKey('task.id'))
     is_completed = db.Column(db.Boolean, default=False)
     completed_at = db.Column(db.DateTime)
 
-    def __init__(self, user_id, task_id, is_completed=False, completed_at=None):
+    def __init__(self, user_id, task_id, is_completed=False):
         self.user_id = user_id
         self.task_id = task_id
         self.is_completed = is_completed
-        self.completed_at
+
+    def complete_task(self, completion):
+        self.completed_at = completion
 
 
 
