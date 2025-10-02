@@ -12,6 +12,7 @@ import { AuthContext } from './components/appwrapper'
 import ErrorPage from './pages/errorpage'
 import EventPage from './pages/events'
 import Splasher from './components/splash'
+import { CreateEvent } from './pages/createEvent'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <Route path='*' element={<ErrorPage/>}/>
       <Route path='/dashboard' element={<RouteLock><Dashboard/></RouteLock>}/>
       <Route path='/events' element={<RouteLock><EventPage/></RouteLock>}/>
+      <Route path='/create-events/:id' element={<RouteLock><CreateEvent/></RouteLock>}/>
     </Routes> 
     </>
   )

@@ -96,5 +96,3 @@ class UserTasks(db.Model):
 
 
 
-
-

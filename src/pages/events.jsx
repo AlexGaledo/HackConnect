@@ -2,9 +2,16 @@ import { useEffect, useState } from "react"
 import SearchBar from "../components/searchbar"
 import axios from "../api/axios";
 import hackconnectsvg from '../assets/hackconnectlogo.svg'
+import { useNavigate } from "react-router-dom";
 
 
 export default function EventPage(){
+    const nav = useNavigate()
+    const handleCreateEvent = () =>{
+        nav(`/create-events/${localStorage.getItem('user_id')}`)
+    }
+
+
     const [events,setEvents] = useState([])
 
     useEffect(() => {
@@ -20,6 +27,11 @@ export default function EventPage(){
     return(
         <>  
         <SearchBar/>
+        <div className="event-page-buttons">
+            <button className="create-event-button" onClick={handleCreateEvent}>Create Event</button>
+            <button className="filter-events">Filter</button>
+        </div>
+      
             <div className="eventpage-container">
                
                 {events.map((event)=> (
