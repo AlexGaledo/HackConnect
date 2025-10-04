@@ -73,9 +73,38 @@
     font-size: 16px;
     transition: background-color 0.3s ease;
     color: white;
+    transition: all 0.3s ease-in-out;
 }
 
 .create-event-button:hover, .filter-events:hover{
-    background-color: #5750d4;
+    scale: 1.05;
+}
+
+.create-event-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    gap: 10px;
+    width: 100%;
+    background-color: #231f20;
+}
+
+.create-event-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+}
+
+.create-event-form input, .create-event-form button{
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+    background-color: #fff;
+    
 }
 
