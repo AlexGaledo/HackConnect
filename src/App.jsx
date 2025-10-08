@@ -28,7 +28,7 @@ function App() {
     <>
     {authStatus&&<Header/>}
     <Routes>  
-      <Route path='/'element={showSplash?<Splasher/>:<Landing_page/>}/>
+      <Route path='/'element={showSplash?<Splasher/>:authStatus?<Dashboard/>:<Landing_page/>}/>
       <Route path='*' element={<ErrorPage/>}/>
       <Route path='/dashboard' element={<RouteLock><Dashboard/></RouteLock>}/>
       <Route path='/events' element={<RouteLock><EventPage/></RouteLock>}/>
